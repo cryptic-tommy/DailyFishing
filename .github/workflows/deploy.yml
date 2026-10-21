@@ -1,0 +1,22 @@
+name: Direct Deploy to Itch.io
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code:
+        uses: actions/checkout@v4
+
+      - name: Install Butler
+        uses: remarkablegames/setup-butler@v3
+
+      - name: Push Game to Itch.io
+        run: butler push . tmmyy/daily-fishing:html5
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
